@@ -193,7 +193,7 @@ export default function SortingVisualizer() {
   const insertionSort = async () => {
     const arr = [...array];
     for (let i = 1; i < arr.length; i++) {
-      let key = arr[i];
+      const key = arr[i];
       let j = i - 1;
       while (j >= 0 && arr[j] > key) {
         if (stopSorting) return;
@@ -226,8 +226,8 @@ export default function SortingVisualizer() {
     mid: number,
     end: number
   ) => {
-    let left = arr.slice(start, mid + 1);
-    let right = arr.slice(mid + 1, end + 1);
+    const left = arr.slice(start, mid + 1);
+    const right = arr.slice(mid + 1, end + 1);
     let i = 0,
       j = 0,
       k = start;
@@ -330,7 +330,7 @@ export default function SortingVisualizer() {
               <Button
                 onClick={startSorting}
                 disabled={sorting}
-                className="px-4 py-2 bg-neon-blue bg-opacity-80 text-gray-100 hover:bg-opacity-100 transition-colors duration-200"
+                className="px-4 py-2 bg-neon-blue bg-opacity-80 text-gray-100 hover:bg-opacity-100 transition-colors duration-200 "
               >
                 Start Sorting
               </Button>
