@@ -25,3 +25,37 @@ body {
     text-wrap: balance;
   }
 }
+
+:root {
+  --neon-pink: #ff00ff;
+  --neon-blue: #00ffff;
+  --neon-green: #00ff00;
+}
+
+.text-neon-pink {
+  color: var(--neon-pink);
+}
+
+.text-neon-blue {
+  color: var(--neon-blue);
+}
+
+.text-neon-green {
+  color: var(--neon-green);
+}
+
+.bg-neon-pink {
+  background-color: var(--neon-pink);
+}
+
+.bg-neon-blue {
+  background-color: var(--neon-blue);
+}
+
+.bg-neon-green {
+  background-color: var(--neon-green);
+}
+
+.glow {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+}
