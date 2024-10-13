@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -78,39 +78,14 @@ export default function SortingVisualizer() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [vibrationEnabled, setVibrationEnabled] = useState(false);
 
-  useEffect(() => {
-    checkVibrationPermission();
-  }, []);
-
-  useEffect(() => {
-    generateNewArray();
-  }, [size]);
-
-  useEffect(() => {
-    drawArray();
-  }, [array]);
-
-  const checkVibrationPermission = async () => {
-    if ("vibrate" in navigator) {
-      try {
-        await navigator.permissions.query({
-          name: "vibrate" as PermissionName,
-        });
-        setVibrationEnabled(true);
-      } catch (error) {
-        console.log("Vibration permission not available:", error);
-      }
-    }
-  };
-
-  const generateNewArray = () => {
+  const generateNewArray = useCallback(() => {
     const newArray = Array.from({ length: size }, () =>
       Math.floor(Math.random() * CANVAS_HEIGHT)
     );
     setArray(newArray);
-  };
+  }, [size]);
 
-  const drawArray = () => {
+  const drawArray = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -127,6 +102,31 @@ export default function SortingVisualizer() {
         value
       );
     });
+  }, [array]);
+
+  useEffect(() => {
+    checkVibrationPermission();
+  }, []);
+
+  useEffect(() => {
+    generateNewArray();
+  }, [size, generateNewArray]);
+
+  useEffect(() => {
+    drawArray();
+  }, [array, drawArray]);
+
+  const checkVibrationPermission = async () => {
+    if ("vibrate" in navigator) {
+      try {
+        await navigator.permissions.query({
+          name: "vibrate" as PermissionName,
+        });
+        setVibrationEnabled(true);
+      } catch (error) {
+        console.log("Vibration permission not available:", error);
+      }
+    }
   };
 
   const sleep = (ms: number) =>
